@@ -9,32 +9,25 @@ class App extends React.Component{
 
      this.state={lat: null , errorMessage:''}
 
-     window.navigator.geolocation.getCurrentPosition(
-      (position) => { 
-        this.setState({lat: position.coords.latitude})
-
-
-       },
-      (error) => { this.setState({errorMessage: error.message}) }
-    )
+    
    }
 
    componentDidMount(){
 
-    console.log('My component was rendered to screen')
+    window.navigator.geolocation.getCurrentPosition(
+      position => this.setState({lat: position.coords.latitude}),
+      error => this.setState({errorMessage: error.message}) 
+    )
    }
 
-   componentDidUpdate(){
-
-    console.log('My component was updated -it renrenderd')
-   }
+   
 
   render(){
     if(this.state.errorMessage && !this.state.lat){
       return <div> Error : { this.state.errorMessage}</div>
     }
     if(!this.state.errorMessage && this.state.lat){
-      return <di> latitude : {this.state.lat}</di>
+      return <div> latitude : {this.state.lat}</div>
     }
 
     return <div> Loading!.......</div>
